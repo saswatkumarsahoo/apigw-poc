@@ -9,8 +9,7 @@
 		},
 		"SwaggerPath": {
 			"Type": "String",
-			"Default": "swagger/Customers-prd-swagger-apigateway.json",
-			
+			"Default": "swagger/Customers-prd-swagger-apigateway.json"
 		},
 		"SwaggerVersionId": {
 			"Type": "String",
@@ -28,7 +27,22 @@
 		"DeploymentDescription": {
 			"Type": "String",
 			"Description": "Rest API stage name"
-		}
+		},
+		"S3Bucket" : {
+      "Description" : "The name of the bucket that contains custom lambda function",
+	  "Default":"alexa-trial-es",
+      "Type" : "String"
+    },
+    "S3Key" : {
+      "Description" : "The name of the ZIP package",
+      "Type" : "String",
+      "Default" : "swagger/amilookup.zip"
+    },
+	 "ModuleName" : {
+      "Description" : "The name of the JavaScript file",
+      "Type" : "String",
+      "Default" : "amilookup"
+    }
 	},
 	"Resources": {
 		"RestApi": {
@@ -53,21 +67,63 @@
 				}
 			}
 		},
-		"Stage": {
-			"Type": "AWS::ApiGateway::Deployment",
-			"Properties": {
-				"RestApiId": {
-					"Ref": "RestApi"
-				},
-				"Description": {"Ref":"DeploymentDescription"},
-				"StageName": {
-					"Ref": "StageName"
-				}
-			},
-			"DependsOn": [
-				"RestApi"
-			]
-		}
-	}
+		
+	  "Stage": {
+	  "DependsOn":["RestApi"]
+      "Type": "Custom::Stage",
+      "Properties": {
+        "ServiceToken": { "Fn::GetAtt" : ["AMIInfoFunction", "Arn"] },
+        "Region": { "Ref": "AWS::Region" },
+		"ApiId" : { "Ref": "RestApi" },
+        "DeploymentDescription":  { "Ref": "DeploymentDescription" },
+		"StageName":{ "Ref": "StageName" }
+      }
+    },
+ 
+    "AMIInfoFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+            "S3Bucket": { "Ref": "S3Bucket" },
+            "S3Key": { "Ref": "S3Key" }
+        },
+        "Handler": { "Fn::Join" : [ "", [{ "Ref": "ModuleName" },".handler"] ] },
+        "Role": { "Fn::GetAtt" : ["LambdaExecutionRole", "Arn"] },        
+        "Runtime": "nodejs6.10",
+        "Timeout": "30"
+      }
+    },
+ 
+    "LambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+              "Effect": "Allow",
+              "Principal": {"Service": ["lambda.amazonaws.com"]},
+              "Action": ["sts:AssumeRole"]
+          }]
+        },
+        "Path": "/",
+        "Policies": [{
+          "PolicyName": "root",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [{
+                "Effect": "Allow",
+                "Action": ["logs:CreateLogGroup","logs:CreateLogStream","logs:PutLogEvents"],
+                "Resource": "arn:aws:logs:*:*:*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": ["apigateway:*"],
+                "Resource": "*"
+            }]
+          }
+        }]
+      }
+    }
+}
 
 }
