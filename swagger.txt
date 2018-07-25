@@ -173,7 +173,7 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_CIR_Delete:${stageVariables.ENVIRONMENT}/invocations",
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:4728285823:function:CUS_CIR_Delete:${stageVariables.ENVIRONMENT}/invocations",
           "responses": {
             "default": {
               "statusCode": "200"
