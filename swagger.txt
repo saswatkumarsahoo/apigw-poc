@@ -173,7 +173,7 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:4728285823:function:CUS_CIR_Delete:${stageVariables.ENVIRONMENT}/invocations",
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_CIR_Delete:${stageVariables.ENVIRONMENT}/invocations",
           "responses": {
             "default": {
               "statusCode": "200"
@@ -475,63 +475,6 @@
             "application/json": "{\"statusCode\": 200}"
           },
           "type": "mock"
-        }
-      }
-    },
-    "/tasks": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "createTaskRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/createTaskRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/createTaskResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_TASK_Create:${stageVariables.ENVIRONMENT}/invocations",
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "httpMethod": "POST",
-          "contentHandling": "CONVERT_TO_TEXT",
-          "type": "aws"
         }
       }
     },

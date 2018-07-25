@@ -1,19 +1,19 @@
 {
 	"dev": {
 		"SwaggerBucketName": "alexa-trial-es",
-		"ApiName": "poc",
+		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
 		"DeploymentDescription":"minor change -test"
 	},
 	"pre-prod": {
 		"SwaggerBucketName": "alexa-trial-es",
-		"ApiName": "poc",
+		"ApiName": "ApiGwPoc",
 		"StageName": "pre",
 		"DeploymentDescription":"commit 1"
 	},
 	"prod": {
 		"SwaggerBucketName": "alexa-trial-es",
-		"ApiName": "poc",
+		"ApiName": "ApiGwPoc",
 		"StageName": "prd",
 		"DeploymentDescription":"commit 1"
 	}
