@@ -11,7 +11,7 @@
   ],
   "paths": {
 
-    "/legacy/replicate/interactionRecords": {
+    "/legacy/replicate/interactionRecords1234": {
       "post": {
         "consumes": [
           "application/json"
