@@ -3,7 +3,7 @@
 		"SwaggerBucketName": "alexa-trial-es",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
-		"DeploymentDescription":"ssh remote added"
+		"DeploymentDescription":"role changed"
 	},
 	"pre-prod": {
 		"SwaggerBucketName": "alexa-trial-es",
