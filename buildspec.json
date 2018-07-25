@@ -1,0 +1,21 @@
+{
+	"dev": {
+		"SwaggerBucketName": "alexa-trial-es",
+		"ApiName": "poc",
+		"StageName": "dev",
+		"TemplateURL": "https://s3.amazonaws.com/alexa-trial-es/swagger/ApiGw-v0.1.json",
+		"DeploymentDescription":"commit 1"
+	},
+	"pre-prod": {
+		"SwaggerBucketName": "alexa-trial-es",
+		"ApiName": "poc",
+		"StageName": "pre",
+		"TemplateURL": "https://s3.amazonaws.com/alexa-trial-es/swagger/ApiGw-v0.1.json"
+	},
+	"prod": {
+		"SwaggerBucketName": "alexa-trial-es",
+		"ApiName": "poc",
+		"StageName": "prd",
+		"TemplateURL": "https://s3.amazonaws.com/alexa-trial-es/swagger/ApiGw-v0.1.json"
+	}
+}
