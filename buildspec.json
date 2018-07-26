@@ -3,7 +3,7 @@
 		"SwaggerBucketName": "alexa-trial-es",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
-		"DeploymentDescription":"test"
+		"DeploymentDescription":"buildspec change"
 	}
 	
 }
