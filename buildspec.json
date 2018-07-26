@@ -3,7 +3,7 @@
 		"SwaggerBucketName": "alexa-trial-es",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
-		"DeploymentDescription":"role changed added PutRolePolicy"
+		"DeploymentDescription":"final test"
 	},
 	"pre-prod": {
 		"SwaggerBucketName": "alexa-trial-es",
