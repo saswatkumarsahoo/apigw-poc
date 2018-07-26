@@ -1,21 +1,10 @@
 {
-	"dev": {
+	"parameters": {
 		"SwaggerBucketName": "alexa-trial-es",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
-		"DeploymentDescription":"template update"
-	},
-	"pre-prod": {
-		"SwaggerBucketName": "alexa-trial-es",
-		"ApiName": "ApiGwPoc",
-		"StageName": "pre",
-		"DeploymentDescription":"commit 1"
-	},
-	"prod": {
-		"SwaggerBucketName": "alexa-trial-es",
-		"ApiName": "ApiGwPoc",
-		"StageName": "prd",
-		"DeploymentDescription":"commit 1"
+		"DeploymentDescription":"test"
 	}
+	
 }
 

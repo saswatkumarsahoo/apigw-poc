@@ -11,7 +11,7 @@
   ],
   "paths": {
 
-    "/legacy/replicate": {
+    "/legacy/replicate123": {
       "post": {
         "consumes": [
           "application/json"
