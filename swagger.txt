@@ -1,2289 +1,278 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "3.0",
-    "title": "Customers"
-  },
-  "host": "9lxjryg0b1.execute-api.eu-west-1.amazonaws.com",
-  "basePath": "/prd",
-  "schemes": [
-    "https"
-  ],
-  "paths": {
+	"swagger": "2.0",
+	"info": {
+		"description": "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+		"version": "1.0.0",
+		"title": "Swagger Petstore",
+		"termsOfService": "http://swagger.io/terms/",
+		"contact": {
+			"email": "apiteam@swagger.io"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"host": "petstore.swagger.io",
 
-    "/legacy/replicate123": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "createInteractionRecordRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/createInteractionRecordRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/createInteractionRecordResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_CIR_Create:${stageVariables.ENVIRONMENT}/invocations",
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "httpMethod": "POST",
-          "contentHandling": "CONVERT_TO_TEXT",
-          "type": "aws"
-        }
-      }
-    },
-    "/legacy/replicate/interactionRecords/{sourceActivityIdentifier}": {
-      "put": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "sourceActivityIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "updateInteractionRecordRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/updateInteractionRecordRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/updateInteractionRecordResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_CIR_Update:${stageVariables.ENVIRONMENT}/invocations",
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_templates",
-          "httpMethod": "POST",
-          "requestTemplates": {
-            "application/json": "{\r\n    \"sourceActivityIdentifier\" : \"$input.params('sourceActivityIdentifier')\",\r\n    \"body\" : $input.json('$') \r\n}"
-          },
-          "contentHandling": "CONVERT_TO_TEXT",
-          "type": "aws"
-        }
-      },
-      "delete": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "sourceActivityIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "deleteInteractionRecordRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/deleteInteractionRecordRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/deleteInteractionRecordResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_CIR_Delete:${stageVariables.ENVIRONMENT}/invocations",
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_templates",
-          "httpMethod": "POST",
-          "requestTemplates": {
-            "application/json": "{    \r\n    \"sourceActivityIdentifier\": \"$input.params('sourceActivityIdentifier')\",\r\n\t\"sourceUpdatedBy\" : $input.json('$.sourceUpdatedBy'),\r\n\t\"sourceUpdatedDateTime\" : $input.json('$.sourceUpdatedDateTime')\r\n}\r\n"
-          },
-          "contentHandling": "CONVERT_TO_TEXT",
-          "type": "aws"
-        }
-      }
-    },
-    "/taskCategory": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "createTaskCategoryRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/createTaskCategoryRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/createTaskCategoryResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
-        }
-      }
-    },
-    "/taskCategory/childCategories/{parentCategoryIdentifier}": {
-      "get": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "parentCategoryIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/readParentTaskCategoryResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
-        }
-      }
-    },
-    "/taskCategory/{taskCategoryIdentifier}": {
-      "get": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "taskCategoryIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/readTaskCategoryResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
-        }
-      },
-      "put": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "taskCategoryIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "updateTaskCategoryRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/updateTaskCategoryRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/updateTaskCategoryResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
-        }
-      },
-      "delete": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "taskCategoryIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "deleteTaskCategoryRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/deleteTaskCategoryRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/deleteTaskCategoryResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
-        }
-      }
-    },
-    "/tasks/{taskIdentifier}": {
-      "put": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "taskIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "updateTaskRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/updateTaskRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/updateTaskResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_TASK_Update:${stageVariables.ENVIRONMENT}/invocations",
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_templates",
-          "httpMethod": "POST",
-          "requestTemplates": {
-            "application/json": "{\r\n    \"taskIdentifier\" : $input.params('taskIdentifier'),\r\n    \"body\" : $input.json('$') \r\n}"
-          },
-          "contentHandling": "CONVERT_TO_TEXT",
-          "type": "aws"
-        }
-      },
-      "delete": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "taskIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "deleteTaskRequest",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/deleteTaskRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "schema": {
-              "$ref": "#/definitions/deleteTaskResponse"
-            }
-          },
-          "400": {
-            "description": "400 response"
-          }
-        },
-        "security": [
-          {
-            "ConsumerAPIAuthorizer": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_TASK_Delete:${stageVariables.ENVIRONMENT}/invocations",
-          "responses": {
-            "default": {
-              "statusCode": "200"
-            }
-          },
-          "passthroughBehavior": "when_no_templates",
-          "httpMethod": "POST",
-          "requestTemplates": {
-            "application/json": "{    \r\n  \"taskIdentifier\": $input.params('taskIdentifier'),\r\n \"updatedBy\" : $input.json('$.updatedBy')\r\n}"
-          },
-          "contentHandling": "CONVERT_TO_TEXT",
-          "type": "aws"
-        }
-      }
-    }
-  },
-  "securityDefinitions": {
-    "CustomAuthorizer": {
-      "type": "apiKey",
-      "name": "authorizationToken",
-      "in": "header",
-      "x-amazon-apigateway-authtype": "custom",
-      "x-amazon-apigateway-authorizer": {
-        "authorizerUri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:472828582453:function:CUS_CCDP_CustomAuth:prd/invocations",
-        "authorizerResultTtlInSeconds": 1800,
-        "type": "token"
-      }
-    },
-    "api_key": {
-      "type": "apiKey",
-      "name": "x-api-key",
-      "in": "header"
-    },
-    "ConsumerAPIAuthorizer": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "x-amazon-apigateway-authtype": "cognito_user_pools",
-      "x-amazon-apigateway-authorizer": {
-        "providerARNs": [
-          "arn:aws:cognito-idp:eu-west-1:472828582453:userpool/eu-west-1_CxsJd0Lrp"
-        ],
-        "type": "cognito_user_pools"
-      }
-    }
-  },
-  "definitions": {
-    "createTaskResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "taskIdentifier": {
-          "type": "integer",
-          "description": "Task number generated in CIR"
-        }
-      }
-    },
-    "deleteContactRequest": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "updatedBy": {
-          "type": "string",
-          "description": "person/ system deleting the contact"
-        }
-      }
-    },
-    "contact": {
-      "type": "object",
-      "required": [
-        "contactPartyIdentifier"
-      ],
-      "properties": {
-        "contactPartyIdentifier": {
-          "type": "string",
-          "description": "Business Partner number"
-        },
-        "contactDirectionCode": {
-          "type": "string",
-          "description": "Direction of the contact, whether it was inbound or outbound or no entry"
-        },
-        "contactChannelCode": {
-          "type": "string",
-          "description": "Captures the area that handled the interaction"
-        },
-        "contactParam1": {
-          "type": "string",
-          "description": "Additional Field 1 for contact in future"
-        },
-        "contactParam2": {
-          "type": "string",
-          "description": "Additional Field 2 for contact in future"
-        },
-        "task": {
-          "$ref": "#/definitions/task"
-        },
-        "case": {
-          "$ref": "#/definitions/case"
-        }
-      }
-    },
-    "readTaskCategoryResponse": {
-      "type": "object",
-      "properties": {
-        "taskCategory": {
-          "$ref": "#/definitions/readTaskCategory"
-        }
-      }
-    },
-    "createContact": {
-      "type": "object",
-      "required": [
-        "contactPartyIdentifier",
-        "createdBy"
-      ],
-      "properties": {
-        "contactPartyIdentifier": {
-          "type": "string",
-          "description": "Business partner number"
-        },
-        "contactDirectionCode": {
-          "type": "string",
-          "description": "Direction of the contact: inbound/ outbound etc"
-        },
-        "contactChannelCode": {
-          "type": "string",
-          "description": "Channel through which the contact was initiated"
-        },
-        "taskIdentifier": {
-          "type": "integer",
-          "description": "Task identifier to whom the contact will be linked"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person creating contact"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person updating contact"
-        },
-        "case": {
-          "$ref": "#/definitions/sourceCase"
-        }
-      }
-    },
-    "updateContact": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "contactPartyIdentifier": {
-          "type": "string",
-          "description": "Business partner number"
-        },
-        "contactDirectionCode": {
-          "type": "string",
-          "description": "Direction of the contact: inbound/ outbound etc"
-        },
-        "contactChannelCode": {
-          "type": "string",
-          "description": "Channel through which the contact was initiated"
-        },
-        "taskIdentifier": {
-          "type": "integer",
-          "description": "Task identifier to whom the contact will be linked"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person creating contact"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person updating contact"
-        },
-        "case": {
-          "$ref": "#/definitions/sourceCase"
-        }
-      }
-    },
-    "case": {
-      "type": "object",
-      "properties": {
-        "isCaseLinked": {
-          "type": "boolean",
-          "description": "indicates CRM complaint raised"
-        },
-        "caseParam1": {
-          "type": "string",
-          "description": "Additional Field 1 for case in future"
-        },
-        "caseParam2": {
-          "type": "string",
-          "description": "Additional Field 1 for case in future"
-        }
-      }
-    },
-    "updateIRTask": {
-      "type": "object",
-      "properties": {
-        "taskPartyIdentifier": {
-          "type": "string",
-          "description": "Business Partner number"
-        },
-        "taskAccountIdentifier": {
-          "type": "string",
-          "description": "Contract Account number"
-        },
-        "taskPriorityCode": {
-          "type": "string",
-          "description": "Describes the priority applied to the task record"
-        },
-        "taskStatusCode": {
-          "type": "string",
-          "description": "Captures status of task"
-        },
-        "taskCategoryCode": {
-          "type": "string",
-          "description": "Describes task type and type of work completed"
-        },
-        "taskSubCategoryCode": {
-          "type": "string",
-          "description": "Further categorisation of type of work completed"
-        },
-        "taskDescription": {
-          "type": "string",
-          "description": "Description of task"
-        },
-        "taskNotes": {
-          "type": "string",
-          "description": "Describes the task undertaken"
-        },
-        "taskTargetCompletionDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Captures the target completion date of task"
-        },
-        "taskAssignedTo": {
-          "type": "string",
-          "description": "Lan ID/Department to whom the Task will be assigned"
-        },
-        "taskParam1": {
-          "type": "string",
-          "description": "Additional Field 1 for task in future"
-        },
-        "taskParam2": {
-          "type": "string",
-          "description": "Additional Field 2 for task in future"
-        }
-      }
-    },
-    "createTaskCategoryRequest": {
-      "type": "object",
-      "properties": {
-        "taskCategory": {
-          "$ref": "#/definitions/createTaskCategory"
-        }
-      }
-    },
-    "readContactsRequest": {
-      "type": "object",
-      "properties": {
-        "partyIdentifier": {
-          "type": "string",
-          "description": "business partner number"
-        },
-        "fromDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Date range start date to fetch details"
-        },
-        "toDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Date range end date to fetch details"
-        }
-      }
-    },
-    "updateInteractionRecordResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "sourceActivityIdentifier": {
-          "type": "string",
-          "description": "Interaction record Activity number generated in CRM"
-        },
-        "contactIdentifier": {
-          "type": "integer",
-          "description": "Contact Identifier generated on AWS Database"
-        },
-        "taskIdentifier": {
-          "type": "integer",
-          "description": "Task Identifier generated on AWS Database"
-        },
-        "caseIdentifier": {
-          "type": "integer",
-          "description": "Case Identifier generated on AWS Database"
-        }
-      }
-    },
-    "createContactResponse": {
-      "type": "object",
-      "required": [
-        "contact",
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "contact": {
-          "type": "object",
-          "properties": {
-            "contactIdentifier": {
-              "type": "integer",
-              "description": "new contact number generated"
-            },
-            "case": {
-              "$ref": "#/definitions/caseid"
-            }
-          },
-          "required": [
-            "contactIdentifier"
-          ]
-        }
-      }
-    },
-    "deleteInteractionRecordRequest": {
-      "type": "object",
-      "required": [
-        "sourceUpdatedBy",
-        "sourceUpdatedDateTime"
-      ],
-      "properties": {
-        "sourceUpdatedBy": {
-          "type": "string",
-          "description": "Lan ID, system"
-        },
-        "sourceUpdatedDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time of update"
-        }
-      }
-    },
-    "updateTaskResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "taskIdentifier": {
-          "type": "integer",
-          "description": "task number that got updated"
-        }
-      }
-    },
-    "updateTaskRequest": {
-      "type": "object",
-      "properties": {
-        "task": {
-          "$ref": "#/definitions/updateTask"
-        }
-      }
-    },
-    "updateTaskCategoryResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        }
-      }
-    },
-    "readAllDomainTypeResponse": {
-      "type": "object",
-      "properties": {
-        "domain": {
-          "$ref": "#/definitions/readAllDomainType"
-        }
-      }
-    },
-    "deleteTaskRequest": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "updatedBy": {
-          "type": "string",
-          "description": "Person/ system deleting the task"
-        }
-      }
-    },
-    "updateTask": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "taskPartyIdentifier": {
-          "type": "string",
-          "description": "Business partner number"
-        },
-        "taskAccountIdentifier": {
-          "type": "string",
-          "description": "Contract account number"
-        },
-        "taskPriorityCode": {
-          "type": "string",
-          "description": "Priority of the task"
-        },
-        "taskStatusCode": {
-          "type": "string",
-          "description": "Status of the task"
-        },
-        "taskCategryIdentifier": {
-          "type": "integer",
-          "description": "Task category"
-        },
-        "taskDescription": {
-          "type": "string",
-          "description": "Task description"
-        },
-        "taskNotes": {
-          "type": "string",
-          "description": "Task notes"
-        },
-        "taskTargetCompletionDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time of completion of task"
-        },
-        "taskAssignedTo": {
-          "type": "string",
-          "description": "Person/ department to whom the task is assigned"
-        },
-        "contactIdentifier": {
-          "type": "integer",
-          "description": "Contact identifier to whom the task will be linked"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person creating task"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person updating task"
-        }
-      }
-    },
-    "task": {
-      "type": "object",
-      "required": [
-        "taskPartyIdentifier"
-      ],
-      "properties": {
-        "taskPartyIdentifier": {
-          "type": "string",
-          "description": "Business Partner number"
-        },
-        "taskAccountIdentifier": {
-          "type": "string",
-          "description": "Contract Account number"
-        },
-        "taskPriorityCode": {
-          "type": "string",
-          "description": "Describes the priority applied to the task record"
-        },
-        "taskStatusCode": {
-          "type": "string",
-          "description": "Captures status of task"
-        },
-        "taskCategoryCode": {
-          "type": "string",
-          "description": "Describes task type and type of work completed"
-        },
-        "taskSubCategoryCode": {
-          "type": "string",
-          "description": "Further categorisation of type of work completed"
-        },
-        "taskDescription": {
-          "type": "string",
-          "description": "Description of task"
-        },
-        "taskNotes": {
-          "type": "string",
-          "description": "Describes the task undertaken"
-        },
-        "taskTargetCompletionDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Captures the target completion date of task"
-        },
-        "taskAssignedTo": {
-          "type": "string",
-          "description": "Lan ID/Department to whom the Task will be assigned"
-        },
-        "taskParam1": {
-          "type": "string",
-          "description": "Additional Field 1 for task in future"
-        },
-        "taskParam2": {
-          "type": "string",
-          "description": "Additional Field 2 for task in future"
-        }
-      }
-    },
-    "readDomain": {
-      "type": "object",
-      "properties": {
-        "domainCodeIdentifier": {
-          "type": "string",
-          "description": "Unique domain code identifier"
-        },
-        "domainDescription": {
-          "type": "string",
-          "description": "Domain description"
-        },
-        "domainType": {
-          "type": "string",
-          "description": "Domain type eg: communication channel, task status etc"
-        },
-        "visible": {
-          "type": "integer",
-          "description": "describes the visibility on front end"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "describes the person/ channel creating new domain code"
-        },
-        "createdDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Date time when the domain code was created"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "describes the person/ channel updating new domain code"
-        },
-        "updatedDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Date time when the domain code was updated"
-        }
-      }
-    },
-    "caseid": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "caseIdentifier": {
-            "type": "integer",
-            "description": "Case identifier"
-          }
-        }
-      }
-    },
-    "createTask": {
-      "type": "object",
-      "required": [
-        "createdBy",
-        "taskPartyIdentifier"
-      ],
-      "properties": {
-        "taskPartyIdentifier": {
-          "type": "string",
-          "description": "Business partner number"
-        },
-        "taskAccountIdentifier": {
-          "type": "string",
-          "description": "Contract account number"
-        },
-        "taskPriorityCode": {
-          "type": "string",
-          "description": "Priority of the task"
-        },
-        "taskStatusCode": {
-          "type": "string",
-          "description": "Status of the task"
-        },
-        "taskCategryIdentifier": {
-          "type": "integer",
-          "description": "Task category"
-        },
-        "taskDescription": {
-          "type": "string",
-          "description": "Task description"
-        },
-        "taskNotes": {
-          "type": "string",
-          "description": "Task notes"
-        },
-        "taskTargetCompletionDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time of completion of task"
-        },
-        "taskAssignedTo": {
-          "type": "string",
-          "description": "Person/ department to whom the task is assigned"
-        },
-        "contactIdentifier": {
-          "type": "integer",
-          "description": "Contact identifier to whom the task will be linked"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person creating task"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "Lan ID, system, email id of person updating task"
-        }
-      }
-    },
-    "deleteTaskCategoryRequest": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "updatedBy": {
-          "type": "string",
-          "description": "describes the person/ channel deleting the task category"
-        }
-      }
-    },
-    "getContactTasks": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "taskIdentifier": {
-            "type": "integer",
-            "description": "Unique task identifier"
-          },
-          "parentTaskIdentifier": {
-            "type": "integer",
-            "description": "parent task identifier"
-          },
-          "taskPartyIdentifier": {
-            "type": "string",
-            "description": "Business partner number"
-          },
-          "taskAccountIdentifier": {
-            "type": "string",
-            "description": "Contract account number"
-          },
-          "taskDescription": {
-            "type": "string",
-            "description": "Task description"
-          },
-          "taskCategoryIdentifier": {
-            "type": "integer",
-            "description": "Task category"
-          },
-          "taskCategoryDescription": {
-            "type": "string",
-            "description": "Task category description"
-          },
-          "taskPriorityCode": {
-            "type": "string",
-            "description": "Priority code of the task"
-          },
-          "taskPriorityDescription": {
-            "type": "string",
-            "description": "Priority description of the task"
-          },
-          "taskStatusCode": {
-            "type": "string",
-            "description": "Status code of the task"
-          },
-          "taskStatusDescription": {
-            "type": "string",
-            "description": "Status description of the task"
-          },
-          "taskTargetCompletionDate": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of completion of task"
-          },
-          "taskAssignedTo": {
-            "type": "string",
-            "description": "Person/ department to whom the task is assigned"
-          },
-          "taskNotes": {
-            "type": "string",
-            "description": "Task notes"
-          },
-          "createdBy": {
-            "type": "string",
-            "description": "Lan ID, system, email id of person creating task"
-          },
-          "createdDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of creation in target system"
-          },
-          "updatedBy": {
-            "type": "string",
-            "description": "Lan ID, system, email id of person updating task"
-          },
-          "updateddDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of update in target system"
-          },
-          "sourceCreatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of creation in source system"
-          },
-          "sourceUpdatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of update in source system"
-          }
-        }
-      }
-    },
-    "updateTaskCategory": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "parentCategoryIdentifier": {
-          "type": "integer",
-          "description": "parent task category identifier"
-        },
-        "categoryCodeIdentifier": {
-          "type": "string",
-          "description": "task category code identifier from source system"
-        },
-        "taskCategoryDescription": {
-          "type": "string",
-          "description": "task category description"
-        },
-        "visible": {
-          "type": "integer",
-          "description": "describes the visibility on front end"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "describes the person/ channel updating the task category"
-        }
-      }
-    },
-    "readContactResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "contact": {
-          "$ref": "#/definitions/getPartyIdentfierContacts"
-        }
-      }
-    },
-    "updateDomainRequest": {
-      "type": "object",
-      "properties": {
-        "domain": {
-          "$ref": "#/definitions/updateDomain"
-        }
-      }
-    },
-    "updateTaskCategoryRequest": {
-      "type": "object",
-      "properties": {
-        "taskCategory": {
-          "$ref": "#/definitions/updateTaskCategory"
-        }
-      }
-    },
-    "deleteContactResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        }
-      }
-    },
-    "createDomain": {
-      "type": "object",
-      "required": [
-        "createdBy",
-        "domainCodeIdentifier",
-        "domainDescription",
-        "domainType"
-      ],
-      "properties": {
-        "domainCodeIdentifier": {
-          "type": "string",
-          "description": "Unique domain identifier"
-        },
-        "domainDescription": {
-          "type": "string",
-          "description": "Domain description"
-        },
-        "domainType": {
-          "type": "string",
-          "description": "Domain type eg: communication channel, task status etc"
-        },
-        "visible": {
-          "type": "integer",
-          "description": "describes the visibility on front end"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "describes the person/ channel creating new domain code"
-        }
-      }
-    },
-    "updateContactRequest": {
-      "type": "object",
-      "properties": {
-        "contact": {
-          "$ref": "#/definitions/updateContact"
-        }
-      }
-    },
-    "readDomainResponse": {
-      "type": "object",
-      "properties": {
-        "domain": {
-          "$ref": "#/definitions/readDomain"
-        }
-      }
-    },
-    "createInteractionRecordResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "sourceActivityIdentifier": {
-          "type": "string",
-          "description": "Interaction record Activity number generated in CRM"
-        },
-        "contactIdentifier": {
-          "type": "integer",
-          "description": "Contact Identifier generated on AWS Database"
-        },
-        "taskIdentifier": {
-          "type": "integer",
-          "description": "Task Identifier generated on AWS Database"
-        },
-        "caseIdentifier": {
-          "type": "integer",
-          "description": "Case Identifier generated on AWS Database"
-        }
-      }
-    },
-    "sourceCase": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "isCaseLinked": {
-            "type": "boolean",
-            "description": "To identify if the case needs to be creeate dor deleted"
-          },
-          "sourceCaseIdentifier": {
-            "type": "string",
-            "description": "Source case number"
-          },
-          "sourceCaseCreatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of case creation in source system"
-          },
-          "sourceCaseUpdatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of case update in source system"
-          }
-        }
-      }
-    },
-    "createTaskRequest": {
-      "type": "object",
-      "properties": {
-        "task": {
-          "$ref": "#/definitions/createTask"
-        }
-      }
-    },
-    "deleteTaskResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        }
-      }
-    },
-    "createContactRequest": {
-      "type": "object",
-      "properties": {
-        "contact": {
-          "$ref": "#/definitions/createContact"
-        }
-      }
-    },
-    "deleteTaskCategoryResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        }
-      }
-    },
-    "deleteDomainRequest": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "updatedBy": {
-          "type": "string",
-          "description": "describes the person/ channel deleting new domain code"
-        }
-      }
-    },
-    "deleteInteractionRecordResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        }
-      }
-    },
-    "createDomainResponse": {
-      "type": "object",
-      "required": [
-        "domainIdentifier",
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "domainIdentifier": {
-          "type": "integer",
-          "description": "The newly created domain identifier"
-        }
-      }
-    },
-    "createTaskCategory": {
-      "type": "object",
-      "required": [
-        "categoryCodeIdentifier",
-        "createdBy",
-        "taskCategoryDescription"
-      ],
-      "properties": {
-        "parentCategoryIdentifier": {
-          "type": "integer",
-          "description": "Unique category code identifier"
-        },
-        "categoryCodeIdentifier": {
-          "type": "string",
-          "description": "Unique category code identifier"
-        },
-        "taskCategoryDescription": {
-          "type": "string",
-          "description": "Task category description"
-        },
-        "visible": {
-          "type": "integer",
-          "description": "describes the visibility on front end"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "describes the person/ channel creating new tasl category"
-        }
-      }
-    },
-    "deleteBusinessPartnerContactsRequest": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "updatedBy": {
-          "type": "string",
-          "description": "person/ system deleting the business partner contacts"
-        }
-      }
-    },
-    "updateContactResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "contact": {
-          "type": "object",
-          "properties": {
-            "contactIdentifier": {
-              "type": "integer",
-              "description": "contact number that is updated"
-            },
-            "case": {
-              "$ref": "#/definitions/caseid"
-            }
-          }
-        }
-      }
-    },
-    "updateDomainResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        }
-      }
-    },
-    "createInteractionRecordRequest": {
-      "type": "object",
-      "required": [
-        "sourceActivityIdentifier",
-        "sourceCreatedBy",
-        "sourceCreatedDateTime"
-      ],
-      "properties": {
-        "sourceActivityIdentifier": {
-          "type": "string",
-          "description": "Interaction record Activity number generated in CRM"
-        },
-        "sourceCreatedBy": {
-          "type": "string",
-          "description": "Lan ID, system "
-        },
-        "sourceCreatedDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time of creation"
-        },
-        "sourceUpdatedBy": {
-          "type": "string",
-          "description": "Lan ID, system"
-        },
-        "sourceUpdatedDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time of update"
-        },
-        "contact": {
-          "$ref": "#/definitions/contact"
-        }
-      }
-    },
-    "readParentTaskCategory": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "taskCategoryIdentifier": {
-            "type": "integer",
-            "description": "Unique task category identifier"
-          },
-          "categoryCodeIdentifier": {
-            "type": "string",
-            "description": "Unique category code identifier as defined in source system"
-          },
-          "taskCategoryDescription": {
-            "type": "string",
-            "description": "Description of category"
-          },
-          "visible": {
-            "type": "integer",
-            "description": "describes the visibility on front end"
-          },
-          "createdBy": {
-            "type": "string",
-            "description": "describes the person/ channel creating task category"
-          },
-          "createdDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date time when the task category was created"
-          },
-          "updatedBy": {
-            "type": "string",
-            "description": "describes the person/ channel updating the task category"
-          },
-          "updatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date time when the task category was updated"
-          }
-        }
-      }
-    },
-    "updateIRContact": {
-      "type": "object",
-      "properties": {
-        "contactPartyIdentifier": {
-          "type": "string",
-          "description": "Business Partner number"
-        },
-        "contactDirectionCode": {
-          "type": "string",
-          "description": "Direction of the contact, whether it was inbound or outbound or no entry"
-        },
-        "contactChannelCode": {
-          "type": "string",
-          "description": "Captures the area that handled the interaction"
-        },
-        "contactParam1": {
-          "type": "string",
-          "description": "Additional Field 1 for contact in future"
-        },
-        "contactParam2": {
-          "type": "string",
-          "description": "Additional Field 2 for contact in future"
-        },
-        "task": {
-          "$ref": "#/definitions/updateIRTask"
-        },
-        "case": {
-          "$ref": "#/definitions/case"
-        }
-      }
-    },
-    "getContactCases": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "caseIdentifier": {
-            "type": "integer",
-            "description": "Unique case identifier"
-          },
-          "sourceCaseIdentifier": {
-            "type": "string",
-            "description": "Unique source identifier"
-          },
-          "createdBy": {
-            "type": "string",
-            "description": "Lan ID, system, email id of person creating case"
-          },
-          "createdDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of creation in target system"
-          },
-          "updatedBy": {
-            "type": "string",
-            "description": "Lan ID, system, email id of person updating case"
-          },
-          "updateddDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of update in target system"
-          },
-          "sourceCreatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of creation in source system"
-          },
-          "sourceUpdatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Time of update in source system"
-          }
-        }
-      }
-    },
-    "getPartyIdentfierContacts": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "contactIdentifier": {
-            "type": "integer",
-            "description": "Unique contact number"
-          },
-          "sourceActivityIdentifier": {
-            "type": "string",
-            "description": "Unique source activity identifier"
-          },
-          "partyIdentifier": {
-            "type": "string",
-            "description": "Business partner number"
-          },
-          "directionCode": {
-            "type": "string",
-            "description": "Direction code. Ex: N, I"
-          },
-          "directionDescription": {
-            "type": "string",
-            "description": "Direction description: No Entry, Inbound etc"
-          },
-          "channelCode": {
-            "type": "string",
-            "description": "Channel Code, ex: 301"
-          },
-          "channelDescription": {
-            "type": "string",
-            "description": "Channel Description. Ex: Letter"
-          },
-          "createdBy": {
-            "type": "string",
-            "description": "Lan ID, system, email id of person creating contact"
-          },
-          "createdDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date Time of creation in target system"
-          },
-          "updatedBy": {
-            "type": "string",
-            "description": "Lan ID, system, email id of person updating contact"
-          },
-          "updateddDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date Time of update in target system"
-          },
-          "sourceCreatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date Time of creation in source system"
-          },
-          "sourceUpdatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date Time of update in target system"
-          },
-          "task": {
-            "$ref": "#/definitions/getContactTasks"
-          },
-          "case": {
-            "$ref": "#/definitions/getContactCases"
-          }
-        }
-      }
-    },
-    "deleteDomainResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        }
-      }
-    },
-    "updateInteractionRecordRequest": {
-      "type": "object",
-      "required": [
-        "sourceUpdatedBy",
-        "sourceUpdatedDateTime"
-      ],
-      "properties": {
-        "sourceCreatedBy": {
-          "type": "string",
-          "description": "Lan ID, system "
-        },
-        "sourceCreatedDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time of creation"
-        },
-        "sourceUpdatedBy": {
-          "type": "string",
-          "description": "Lan ID, system"
-        },
-        "sourceUpdatedDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time of update"
-        },
-        "contact": {
-          "$ref": "#/definitions/updateIRContact"
-        }
-      }
-    },
-    "createTaskCategoryResponse": {
-      "type": "object",
-      "required": [
-        "outcome",
-        "status"
-      ],
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "description": "Outcome message based on success/failure"
-        },
-        "status": {
-          "type": "integer",
-          "description": "Status code- 200 for success, 4xx, 5xx for other errors"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Error code i.e sql error or validation error"
-        },
-        "errorMessage": {
-          "type": "string",
-          "description": "Outcome message based based on sql error or validation error"
-        },
-        "taskCategoryIdentifier": {
-          "type": "integer",
-          "description": "Auto generated task category identifier"
-        }
-      }
-    },
-    "createDomainRequest": {
-      "type": "object",
-      "properties": {
-        "domain": {
-          "$ref": "#/definitions/createDomain"
-        }
-      }
-    },
-    "readTaskCategory": {
-      "type": "object",
-      "properties": {
-        "taskCategoryIdentifier": {
-          "type": "integer",
-          "description": "Unique task category identifier"
-        },
-        "parentCategoryIdentifier": {
-          "type": "integer",
-          "description": "parent category identifier of task"
-        },
-        "categoryCodeIdentifier": {
-          "type": "string",
-          "description": "Unique category code identifier as defined in source system"
-        },
-        "taskCategoryDescription": {
-          "type": "string",
-          "description": "Description of category"
-        },
-        "visible": {
-          "type": "integer",
-          "description": "describes the visibility on front end"
-        },
-        "createdBy": {
-          "type": "string",
-          "description": "describes the person/ channel creating task category"
-        },
-        "createdDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Date time when the task category was created"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "describes the person/ channel updating the task category"
-        },
-        "updatedDateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Date time when the task category was updated"
-        }
-      }
-    },
-    "updateDomain": {
-      "type": "object",
-      "required": [
-        "updatedBy"
-      ],
-      "properties": {
-        "domainCodeIdentifier": {
-          "type": "string",
-          "description": "Domain code identifier"
-        },
-        "domainDescription": {
-          "type": "string",
-          "description": "Domain description"
-        },
-        "domainType": {
-          "type": "string",
-          "description": "Domain type eg: communication channel, task status etc"
-        },
-        "visible": {
-          "type": "integer",
-          "description": "describes the visibility on front end"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "describes the person/ channel updating new domain code"
-        }
-      }
-    },
-    "readAllDomainType": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "domainIdentifier": {
-            "type": "string",
-            "description": "Unique domain identifier"
-          },
-          "domainCodeIdentifier": {
-            "type": "string",
-            "description": "Domain code identifier"
-          },
-          "domainDescription": {
-            "type": "string",
-            "description": "Domain description"
-          },
-          "visible": {
-            "type": "integer",
-            "description": "describes the visibility on front end"
-          },
-          "createdBy": {
-            "type": "string",
-            "description": "describes the person/ channel creating new domain code"
-          },
-          "createdDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date time when the domain code was created"
-          },
-          "updatedBy": {
-            "type": "string",
-            "description": "describes the person/ channel updating new domain code"
-          },
-          "updatedDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date time when the domain code was updated"
-          }
-        }
-      }
-    },
-    "readParentTaskCategoryResponse": {
-      "type": "object",
-      "properties": {
-        "taskCategory": {
-          "$ref": "#/definitions/readParentTaskCategory"
-        }
-      }
-    }
-  }
+	"tags": [{
+		"name": "pet",
+		"description": "Everything about your Pets",
+		"externalDocs": {
+			"description": "Find out more",
+			"url": "http://swagger.io"
+		}
+	}, {
+		"name": "store",
+		"description": "Access to Petstore orders"
+	}, {
+		"name": "user",
+		"description": "Operations about user",
+		"externalDocs": {
+			"description": "Find out more about our store",
+			"url": "http://swagger.io"
+		}
+	}],
+	"schemes": ["https", "http"],
+	"paths": {
+		"/pet": {
+			"post": {
+				"tags": ["pet"],
+				"summary": "Add a new pet to the store",
+				"description": "",
+				"operationId": "addPet",
+				"consumes": ["application/json", "application/xml"],
+				"produces": ["application/xml", "application/json"],
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Pet object that needs to be added to the store",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Pet"
+					}
+				}],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				},
+				"security": [{
+					"petstore_auth": ["write:pets", "read:pets"]
+				}]
+			},
+			"put": {
+				"tags": ["pet"],
+				"summary": "Update an existing pet",
+				"description": "",
+				"operationId": "updatePet",
+				"consumes": ["application/json", "application/xml"],
+				"produces": ["application/xml", "application/json"],
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"description": "Pet object that needs to be added to the store",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Pet"
+					}
+				}],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "Pet not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				},
+				"security": [{
+					"petstore_auth": ["write:pets", "read:pets"]
+				}]
+			}
+		}
+
+	},
+	"securityDefinitions": {
+		"petstore_auth": {
+			"type": "oauth2",
+			"authorizationUrl": "https://petstore.swagger.io/oauth/dialog",
+			"flow": "implicit",
+			"scopes": {
+				"write:pets": "modify pets in your account",
+				"read:pets": "read your pets"
+			}
+		},
+		"api_key": {
+			"type": "apiKey",
+			"name": "api_key",
+			"in": "header"
+		}
+	},
+	"definitions": {
+		"Order": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"petId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"quantity": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"shipDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"status": {
+					"type": "string",
+					"description": "Order Status",
+					"enum": ["placed", "approved", "delivered"]
+				},
+				"complete": {
+					"type": "boolean",
+					"default": false
+				}
+			},
+			"xml": {
+				"name": "Order"
+			}
+		},
+		"User": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"username": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"phone": {
+					"type": "string"
+				},
+				"userStatus": {
+					"type": "integer",
+					"format": "int32",
+					"description": "User Status"
+				}
+			},
+			"xml": {
+				"name": "User"
+			}
+		},
+		"Category": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"xml": {
+				"name": "Category"
+			}
+		},
+		"Tag": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"xml": {
+				"name": "Tag"
+			}
+		},
+		"Pet": {
+			"type": "object",
+			"required": ["name", "photoUrls"],
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"category": {
+					"$ref": "#/definitions/Category"
+				},
+				"name": {
+					"type": "string",
+					"example": "doggie"
+				},
+				"photoUrls": {
+					"type": "array",
+					"xml": {
+						"name": "photoUrl",
+						"wrapped": true
+					},
+					"items": {
+						"type": "string"
+					}
+				},
+				"tags": {
+					"type": "array",
+					"xml": {
+						"name": "tag",
+						"wrapped": true
+					},
+					"items": {
+						"$ref": "#/definitions/Tag"
+					}
+				},
+				"status": {
+					"type": "string",
+					"description": "pet status in the store",
+					"enum": ["available", "pending", "sold"]
+				}
+			},
+			"xml": {
+				"name": "Pet"
+			}
+		},
+		"ApiResponse": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"type": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"externalDocs": {
+		"description": "Find out more about Swagger",
+		"url": "http://swagger.io"
+	}
 }
