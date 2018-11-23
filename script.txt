@@ -3,4 +3,4 @@ SWAGGER_BUCKET_NAME=$(cat buildspec.json | jq -r '.dev.SwaggerBucketName')
 API_NAME=$(cat buildspec.json | jq -r '.dev.ApiName')
 STAGE_NAME=$(cat buildspec.json | jq -r '.dev.StageName') 
 
- /usr/local/bin/aws s3api put-object --bucket alexa-trial-es --key swagger/swagger.txt --body swagger.txt --metadata DEPLOYMENT_DESC="$(echo $DEPLOYMENT_DESC)",SWAGGER_BUCKET_NAME="$(echo $SWAGGER_BUCKET_NAME)",API_NAME="$(echo $API_NAME)",STAGE_NAME="$(echo $STAGE_NAME)"
+ /usr/local/bin/aws s3api put-object --bucket apigw-devops-poc --key swagger/swagger.txt --body swagger.txt --metadata DEPLOYMENT_DESC="$(echo $DEPLOYMENT_DESC)",SWAGGER_BUCKET_NAME="$(echo $SWAGGER_BUCKET_NAME)",API_NAME="$(echo $API_NAME)",STAGE_NAME="$(echo $STAGE_NAME)"

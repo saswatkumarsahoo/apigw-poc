@@ -1,9 +1,8 @@
 {
 	"parameters": {
-		"SwaggerBucketName": "alexa-trial-es",
+		"SwaggerBucketName": "apigw-devops-poc",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
 		"DeploymentDescription":"buildspec change"
 	}
 }
-
