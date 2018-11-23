@@ -3,6 +3,6 @@
 		"SwaggerBucketName": "apigw-devops-poc",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
-		"DeploymentDescription":"buildspec change"
+		"DeploymentDescription":"dummy change"
 	}
 }
