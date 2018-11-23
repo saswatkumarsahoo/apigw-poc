@@ -3,6 +3,6 @@
 		"SwaggerBucketName": "apigw-devops-poc",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
-		"DeploymentDescription":"testing"
+		"DeploymentDescription":"testing after changing role"
 	}
 }
