@@ -51,7 +51,7 @@
         }
       }
     },
-    "/pets/change": {
+    "/pets": {
       "get": {
         "tags": [
           "pets"
