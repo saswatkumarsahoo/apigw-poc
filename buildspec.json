@@ -2,7 +2,7 @@
 	"parameters": {
 		"SwaggerBucketName": "apigw-devops-poc",
 		"ApiName": "ApiGwPoc",
-		"StageName": "test",
-		"DeploymentDescription":"test stage"
+		"StageName": "dev",
+		"DeploymentDescription":"dev stage"
 	}
 }
