@@ -3,6 +3,6 @@
 		"SwaggerBucketName": "apigw-devops-poc",
 		"ApiName": "ApiGwPoc",
 		"StageName": "dev",
-		"DeploymentDescription":"added new resoruce"
+		"DeploymentDescription":"added new resoruces"
 	}
 }
